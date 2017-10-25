@@ -387,6 +387,43 @@ router.post('/field/:listId', (req, res) => {
     });
 });
 
+
+router.post('/campaign', (req, res) => {
+    campaigns.create(req.body, false, (err, id) => {
+        if (err || !id) {
+            log.error('API', err);
+            res.status(500);
+            return res.json({
+                error: err.message || err,
+                data: []
+            });
+        }
+        res.status(200);
+        res.json({
+            data: {
+                id
+            }
+        });
+    });
+});
+
+router.post('/trigger', (req, res) => {
+    triggers.create(req.body, (err) => {
+        if (err) {
+            log.error('API', err);
+            res.status(500);
+            return res.json({
+                error: err.message || err,
+                data: []
+            });
+        }
+        res.status(200);
+        res.json({
+            data: []
+        });
+    });
+});
+
 router.post('/blacklist/add', (req, res) => {
     let input = {};
     Object.keys(req.body).forEach(key => {
