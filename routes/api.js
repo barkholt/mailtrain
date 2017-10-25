@@ -41,6 +41,28 @@ router.all('/*', (req, res, next) => {
 
 });
 
+router.post('/list', (req, res) => {
+
+    lists.create(req.body, (err, id, cid) => {
+        if (err || !id) {
+            log.error('API', err);
+            res.status(500);
+            return res.json({
+                error: err.message || err,
+                data: []
+            });
+        }
+        res.status(200);
+        res.json({
+            data: {
+                id,
+                cid
+            }
+        });
+    });
+
+});
+
 router.post('/subscribe/:listId', (req, res) => {
     let input = {};
     Object.keys(req.body).forEach(key => {
