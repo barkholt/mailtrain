@@ -370,7 +370,7 @@ router.post('/field/:listId', (req, res) => {
             visible: ['false', 'no', '0', ''].indexOf((input.VISIBLE || '').toString().toLowerCase().trim()) < 0
         };
 
-        fields.create(list.id, field, (err, id, tag) => {
+        fields.create(list.id, field, (err, id, tag, column) => {
             if (err) {
                 res.status(500);
                 return res.json({
@@ -382,7 +382,8 @@ router.post('/field/:listId', (req, res) => {
             res.json({
                 data: {
                     id,
-                    tag
+                    tag,
+                    column
                 }
             });
         });
