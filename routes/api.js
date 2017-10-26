@@ -410,7 +410,7 @@ router.post('/campaign', (req, res) => {
 });
 
 router.post('/trigger', (req, res) => {
-    triggers.create(req.body, (err) => {
+    triggers.create(req.body, (err, id) => {
         if (err) {
             log.error('API', err);
             res.status(500);
@@ -421,7 +421,9 @@ router.post('/trigger', (req, res) => {
         }
         res.status(200);
         res.json({
-            data: []
+            data: {
+                id
+            }
         });
     });
 });
